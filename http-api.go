@@ -28,7 +28,11 @@ func main() {
 	router := mux.NewRouter()
 
 	posts = append(posts, Post{Title: "My first post", Body: "This is the content of my first post"})
-
+	
+        router.HandleFunc("/api/encrypt", addItem).Methods("GET")
+	
+	router.HandleFunc("/api/decrypt", addItem).Methods("GET")
+	
 	router.HandleFunc("/posts", addItem).Methods("POST")
 
 	router.HandleFunc("/posts", getAllPosts).Methods("GET")
@@ -40,7 +44,7 @@ func main() {
 	router.HandleFunc("/posts/{id}", patchPost).Methods("PATCH")
 
 	router.HandleFunc("/posts/{id}", deletePost).Methods("DELETE")
-
+       
 	http.ListenAndServe(":5000", router)
 }
 
