@@ -74,12 +74,12 @@ func getPost(w http.ResponseWriter, r *http.Request) {
   accept in json and validating the input  with proper HTTP header
   
   
-  func test(w http.ResponseWriter, r *http.Request) {
+    func test(w http.ResponseWriter, r *http.Request) {
 	//w.Write([]byte("testing encrypt and decrypt api"))
 	w.Header().Set("Content-Type", "application/json")
 
 	json.NewEncoder(w).Encode(struct {
 		ID string
 	}{"SHILPA"})
-}
+     }
 
