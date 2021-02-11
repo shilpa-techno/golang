@@ -71,9 +71,9 @@ func getPost(w http.ResponseWriter, r *http.Request) {
   
   and can be tested with various posible approches for the http like GET POST DELETE CREATE and code handles the varios error code
   
+  accept in json and validating the input  with proper HTTP header
   
   
-  *) accept in json and validating the input  with proper HTTP header
   func test(w http.ResponseWriter, r *http.Request) {
 	//w.Write([]byte("testing encrypt and decrypt api"))
 	w.Header().Set("Content-Type", "application/json")
