@@ -1,4 +1,4 @@
-# golang
+# golang  --> an addition doc has screenshot and few additional details for the assessment (install golang from.docs)
 Install golang from
 https://golang.org/
 check the golang installed by below command:
