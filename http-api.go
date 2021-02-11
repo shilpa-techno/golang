@@ -22,17 +22,20 @@ type Post struct {
 	Author User   `json:"author"`
 }
 
+var data []string = []string{}
 var posts []Post = []Post{}
 
 func main() {
 	router := mux.NewRouter()
 
 	posts = append(posts, Post{Title: "My first post", Body: "This is the content of my first post"})
-	
-        router.HandleFunc("/api/encrypt", test).Methods("GET")
-	
+
+	router.HandleFunc("/api/encrypt/", test).Methods("GET")
+
+	router.HandleFunc("/api/encrypt/{item}", addItem).Methods("GET", "DELETE", "PUT", "POST")
+
 	router.HandleFunc("/api/decrypt", test).Methods("GET")
-	
+
 	router.HandleFunc("/posts", addItem).Methods("POST")
 
 	router.HandleFunc("/posts", getAllPosts).Methods("GET")
@@ -44,13 +47,18 @@ func main() {
 	router.HandleFunc("/posts/{id}", patchPost).Methods("PATCH")
 
 	router.HandleFunc("/posts/{id}", deletePost).Methods("DELETE")
-       
+
 	http.ListenAndServe(":5000", router)
 }
 
 func test(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("testing encrypt and decrypt api"))
-        }
+	//w.Write([]byte("testing encrypt and decrypt api"))
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).Encode(struct {
+		ID string
+	}{"SHILPA"})
+}
 
 func getPost(w http.ResponseWriter, r *http.Request) {
 	// get the ID of the post from the route parameter
@@ -83,6 +91,13 @@ func getAllPosts(w http.ResponseWriter, r *http.Request) {
 
 func addItem(w http.ResponseWriter, r *http.Request) {
 	// get Item value from the JSON body
+	routeVariable := mux.Vars(r)["item"]
+	data = append(data, routeVariable)
+
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).Encode(data)
+
 	var newPost Post
 	json.NewDecoder(r.Body).Decode(&newPost)
 
