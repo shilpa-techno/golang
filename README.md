@@ -70,3 +70,16 @@ func getPost(w http.ResponseWriter, r *http.Request) {
   Dockerfile has the image so we need to build our image by using docker build command and post that we can run in container by creating the container using docker run  command and mapping the container port to app port to 5000
   
   and can be tested with various posible approches for the http like GET POST DELETE CREATE and code handles the varios error code
+  
+  
+  
+  *) accept in json and validating the input  with proper HTTP header
+  func test(w http.ResponseWriter, r *http.Request) {
+	//w.Write([]byte("testing encrypt and decrypt api"))
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).Encode(struct {
+		ID string
+	}{"SHILPA"})
+}
+
