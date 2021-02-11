@@ -29,9 +29,9 @@ func main() {
 
 	posts = append(posts, Post{Title: "My first post", Body: "This is the content of my first post"})
 	
-        router.HandleFunc("/api/encrypt", addItem).Methods("GET")
+        router.HandleFunc("/api/encrypt", test).Methods("GET")
 	
-	router.HandleFunc("/api/decrypt", addItem).Methods("GET")
+	router.HandleFunc("/api/decrypt", test).Methods("GET")
 	
 	router.HandleFunc("/posts", addItem).Methods("POST")
 
@@ -47,6 +47,10 @@ func main() {
        
 	http.ListenAndServe(":5000", router)
 }
+
+func test(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("testing encrypt and decrypt api"))
+        }
 
 func getPost(w http.ResponseWriter, r *http.Request) {
 	// get the ID of the post from the route parameter
